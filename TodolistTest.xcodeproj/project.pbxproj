@@ -11,6 +11,7 @@
 		BEE730942C1FDAE7005B0F99 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE730932C1FDAE7005B0F99 /* ContentView.swift */; };
 		BEE730962C1FDAEA005B0F99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEE730952C1FDAEA005B0F99 /* Assets.xcassets */; };
 		BEE730992C1FDAEA005B0F99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEE730982C1FDAEA005B0F99 /* Preview Assets.xcassets */; };
+		BEE730A02C1FDD70005B0F99 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE7309F2C1FDD70005B0F99 /* SheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		BEE730932C1FDAE7005B0F99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BEE730952C1FDAEA005B0F99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEE730982C1FDAEA005B0F99 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BEE7309F2C1FDD70005B0F99 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				BEE730912C1FDAE7005B0F99 /* TodolistTestApp.swift */,
+				BEE7309F2C1FDD70005B0F99 /* SheetView.swift */,
 				BEE730932C1FDAE7005B0F99 /* ContentView.swift */,
 				BEE730952C1FDAEA005B0F99 /* Assets.xcassets */,
 				BEE730972C1FDAEA005B0F99 /* Preview Content */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEE730942C1FDAE7005B0F99 /* ContentView.swift in Sources */,
+				BEE730A02C1FDD70005B0F99 /* SheetView.swift in Sources */,
 				BEE730922C1FDAE7005B0F99 /* TodolistTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
