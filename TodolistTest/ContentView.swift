@@ -14,16 +14,16 @@ struct ContentView: View {
     @Query var tasks: [Task]
     @State private var path = [Task]()
     @Environment(\.modelContext) var modelContext
+    @ObservedObject var user: User
+    
     var body: some View {
         VStack{
             NavigationStack(path: $path) {
                 List {
                     ForEach(tasks) { task in
-    //                    NavigationLink(value: task) {
-    //                        Text(task.title)
-    //                    }
-                        TaskRowView(task: task)
-                    }.onDelete(perform: deleteTask)
+                        TaskRowView(task: task, user: user)
+                    }
+                    .onDelete(perform: deleteTask)
                 }
                 .navigationTitle("To-Do")
     //            .navigationDestination(for: Task.self) { task in
@@ -93,13 +93,6 @@ struct ContentView: View {
 //            }
 //        }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-
 #Preview {
-    ContentView()
+    ContentView(user: User())
 }

@@ -10,25 +10,31 @@ import SwiftData
 struct TaskRowView: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var task: Task
+//    @Binding var tasks: [Task]
+    @ObservedObject var user: User
     
     var body: some View {
         HStack {
-            Button {
-                task.isCompleted.toggle()
-            } label: {
-                if task.isCompleted {
-                    filledReminderLabel
-                } else {
-                    emptyReminderLabel
-                }
-            }
-            .frame(width: 20, height: 20)
-            .buttonStyle(.plain)
-            
             TextField(task.title, text: $task.title)
                 .foregroundColor(task.isCompleted ? .secondary : .primary)
+            Button(action: {
+                task.isCompleted.toggle()
+                if task.isCompleted {
+                    user.addXP(10)
+                } else {
+                    user.addXP(-10)
+                }
+            }) {
+                Image(systemName: task.isCompleted ? "checkmark.square" : "square")
+            }
         }
     }
+    
+//    func toggleCompletion() {
+//        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+//            tasks[index].isCompleted.toggle()
+//        }
+//    }
     
     var filledReminderLabel: some View {
         Circle()
@@ -48,6 +54,15 @@ struct TaskRowView: View {
     var emptyReminderLabel: some View {
         Circle()
             .stroke(.secondary)
+    }
+}
+
+
+class User: ObservableObject {
+    @Published var xp: Int = 0
+    
+    func addXP(_ amount: Int) {
+        xp += amount
     }
 }
 
