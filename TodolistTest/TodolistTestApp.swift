@@ -12,6 +12,6 @@ struct TodolistTestApp: App {
     var body: some Scene {
         WindowGroup {
             SheetView()
-        }
+        }.modelContainer(for: Task.self)
     }
 }
