@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
     @State private var tasks: [Task] = []
     @State private var newTaskTitle: String = ""
+    @ObservedObject var user: User  // Share the user instance
 
     var body: some View {
         NavigationView {
@@ -37,11 +37,14 @@ struct ContentView: View {
                 } .padding(.top, 30)
                 List {
                     ForEach(tasks) { task in
-                        TaskRow(task: task, tasks: $tasks)
+                        TaskRow(task: task, tasks: $tasks, user: user)  // Pass the user instance
                     }
                     .onDelete(perform: deleteTask)
                 }
-                .navigationBarItems(leading: Text("To-Do List").padding(.top, 20).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/) .font(.system(size: 30)))
+                .navigationBarItems(leading: Text("To-Do List")
+                    .padding(.top, 20)
+                    .fontWeight(.bold)
+                    .font(.system(size: 30)))
                 .navigationBarItems(trailing: EditButton())
             }
         }
@@ -62,13 +65,20 @@ struct ContentView: View {
 struct TaskRow: View {
     var task: Task
     @Binding var tasks: [Task]
+    @ObservedObject var user: User
 
     var body: some View {
         HStack {
             Text(task.title)
             Spacer()
+
             Button(action: {
                 toggleCompletion()
+                if !task.isCompleted {
+                    user.addXP(10)
+                } else {
+                    user.addXP(-10)
+                }
             }) {
                 Image(systemName: task.isCompleted ? "checkmark.square" : "square")
             }
@@ -88,13 +98,20 @@ struct Task: Identifiable {
     var isCompleted: Bool
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+class User: ObservableObject {
+    @Published var xp: Int = 0
+    
+    func addXP(_ amount: Int) {
+        xp += amount
     }
 }
 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(user: User())
+    }
+}
 
 #Preview {
-    ContentView()
+    ContentView(user: User())
 }
