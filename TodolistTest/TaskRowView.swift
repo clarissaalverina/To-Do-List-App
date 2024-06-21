@@ -10,31 +10,37 @@ import SwiftData
 struct TaskRowView: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var task: Task
-//    @Binding var tasks: [Task]
-    @ObservedObject var user: User
+    
+    @Binding var currentExp : Int
+    @Binding var currentLevel : Int
+    @Binding var completedTask : Int
     
     var body: some View {
-        HStack {
-            TextField(task.title, text: $task.title)
-                .foregroundColor(task.isCompleted ? .secondary : .primary)
-            Button(action: {
-                task.isCompleted.toggle()
-                if task.isCompleted {
-                    user.addXP(10)
-                } else {
-                    user.addXP(-10)
-                }
-            }) {
-                Image(systemName: task.isCompleted ? "checkmark.square" : "square")
-            }
-        }
-    }
-    
-//    func toggleCompletion() {
-//        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-//            tasks[index].isCompleted.toggle()
-//        }
-//    }
+           HStack {
+               Button(action: {
+                   task.isCompleted.toggle()
+                   if task.isCompleted {
+                       addProgress()
+                   }
+               }) {
+                   Image(systemName: task.isCompleted ? "checkmark.square" : "square")
+               }
+               .disabled(task.isCompleted)
+               .buttonStyle(PlainButtonStyle()) // This can help avoid default button styles interfering
+               Divider()
+               NavigationLink(destination: EditTaskView(task: task)) {
+                   Text(task.title)
+                       .foregroundColor(task.isCompleted ? .secondary : .primary)
+                       .strikethrough(task.isCompleted, color: .secondary)
+               }
+//               Spacer()
+//               Divider()
+//               Text(checkPriority(task: task))
+//                   .foregroundColor(task.isCompleted ? .secondary : .primary)
+               
+           }
+           .contentShape(Rectangle()) // Ensures the entire HStack is tappable for navigation
+       }
     
     var filledReminderLabel: some View {
         Circle()
@@ -51,20 +57,39 @@ struct TaskRowView: View {
             }
     }
     
+    
+    func addProgress(){
+        currentExp += 10
+        if currentExp >= 100 {
+            currentExp = 0
+            currentLevel += 1
+        }
+    }
+    func checkPriority(task: Task) -> String{
+        if task.priority == 1{
+            return "meh"
+        } else if task.priority == 2{
+            return "maybe"
+        } else if task.priority == 3{
+            return "must"
+        } else {
+            return "dunno"
+        }
+    }
     var emptyReminderLabel: some View {
         Circle()
             .stroke(.secondary)
     }
 }
 
-
-class User: ObservableObject {
-    @Published var xp: Int = 0
-    
-    func addXP(_ amount: Int) {
-        xp += amount
-    }
-}
+//@ObservedObject var user: Userz
+//class User: ObservableObject {
+//    @Published var xp: Int = 0
+//    
+//    func addXP(_ amount: Int) {
+//        xp += amount
+//    }
+//}
 
 //#Preview {
 //    do {
