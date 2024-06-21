@@ -9,90 +9,60 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-//    @State private var tasks: [Task] = []
     @State private var newTaskTitle: String = ""
     @Query var tasks: [Task]
     @State private var path = [Task]()
     @Environment(\.modelContext) var modelContext
-    @ObservedObject var user: User
+    
+    @Binding var currentExp : Int
+    @Binding var currentLevel : Int
+    @Binding var completedTask : Int
+    
     //testbro
     var body: some View {
         VStack{
             NavigationStack(path: $path) {
                 List {
                     ForEach(tasks) { task in
-                        TaskRowView(task: task, user: user)
+                        TaskRowView(task: task, currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
                     }
                     .onDelete(perform: deleteTask)
                 }
                 .navigationTitle("To-Do")
-    //            .navigationDestination(for: Task.self) { task in
-    //                EditTaskView(task: task)
-    //            }
-//                .toolbar {
-//                    Button("Add Task", systemImage: "plus", action: addTask)
-//                }
+                .navigationDestination(for: Task.self, destination: EditTaskView.init)
+                .toolbar {
+                    Button("Add Task", systemImage: "plus", action: addTask)
+                }
             }
             Button("Add Task", systemImage: "plus", action: addTask)
+            Button("Reset", systemImage: "minus", action: resetSwiftData)
         }
         
     }
-    func addTask() {
-        let task = Task(title: "", isCompleted: false)
+//    func addTask() {
+//        let task = Task(title: "", isCompleted: false, details: "", date: "", priority: 2)
+//        modelContext.insert(task)
+////        path.append(task)
+//    }
+    
+    func addTask(){
+        let task = Task()
         modelContext.insert(task)
-//        path.append(task)
+        path = [task]
     }
+    
     func deleteTask(at offsets: IndexSet) {
         for offset in offsets {
             let task = tasks[offset]
             modelContext.delete(task)
         }
     }
+    func resetSwiftData(){
+        do {
+            try modelContext.delete(model: Task.self)
+        } catch {
+            print("Failed to clear all data.")
+        }
+    }
 }
-//    func addNewTask() {
-//        guard !newTaskTitle.isEmpty else { return }
-//        let newTask = Task(id: UUID(), title: newTaskTitle, isCompleted: false)
-//        tasks.append(newTask)
-//        newTaskTitle = ""
-//    }
-//
-//    func deleteTask(at offsets: IndexSet) {
-//        tasks.remove(atOffsets: offsets)
-//    }
 
-//        NavigationView {
-//            VStack {
-//                HStack {
-//                    TextField("Enter new task", text: $newTaskTitle)
-//                        .textFieldStyle(RoundedBorderTextFieldStyle())
-//                        .padding()
-//                    Button(action: {
-//                        addNewTask()
-//                    }) {
-//                        ZStack {
-//                            Rectangle()
-//                                .frame(width: 100, height: 30)
-//                                .cornerRadius(25)
-//                                .foregroundColor(.black)
-//
-//                            Text("Add")
-//                                .fontWeight(.semibold)
-//                                .foregroundColor(Color.white)
-//                                .font(.system(size: 16))
-//                        } .padding(.trailing, 10)
-//                    }
-//                } .padding(.top, 30)
-//                List {
-//                    ForEach(tasks) { task in
-//                        TaskRow(task: task, tasks: $tasks)
-//                    }
-//                    .onDelete(perform: deleteTask)
-//                }
-//                .navigationBarItems(leading: Text("To-Do List").padding(.top, 20).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/) .font(.system(size: 30)))
-//                .navigationBarItems(trailing: EditButton())
-//            }
-//        }
-
-#Preview {
-    ContentView(user: User())
-}
