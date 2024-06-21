@@ -34,7 +34,6 @@ struct ContentView: View {
                     Button("Add Task", systemImage: "plus", action: addTask)
                 }
             }
-            Button("Add Task", systemImage: "plus", action: addTask)
             Button("Reset", systemImage: "minus", action: resetSwiftData)
         }
         
