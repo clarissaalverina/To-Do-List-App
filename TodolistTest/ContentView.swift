@@ -18,6 +18,14 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
+//            VStack {
+//                Text("To-Do List")
+//                    .bold()
+//                .font(.system(size: 30))
+//            }
+//            .padding(.trailing, 200)
+//            .padding(.top, 10)
+            
             NavigationStack(path: $path) {
                 List {
                     ForEach(tasks) { task in
@@ -25,7 +33,7 @@ struct ContentView: View {
                     }
                     .onDelete(perform: deleteTask)
                 }
-                .navigationTitle("To-Do")
+                
     //            .navigationDestination(for: Task.self) { task in
     //                EditTaskView(task: task)
     //            }
@@ -33,7 +41,25 @@ struct ContentView: View {
 //                    Button("Add Task", systemImage: "plus", action: addTask)
 //                }
             }
+            .padding(.bottom, 30)
+            
             Button("Add Task", systemImage: "plus", action: addTask)
+            
+//            VStack {
+//                Button(action: {
+//                    
+//                }) {
+//                    ZStack {
+//                        Circle()
+//                            .frame(width: 60, height: 60)
+//                            .foregroundColor(.gray)
+//                        Image(systemName: "plus")
+//                            .foregroundColor(.white)
+//                            .font(.system(size: 24))
+//                    }
+//                }
+//            }
+
         }
         
     }

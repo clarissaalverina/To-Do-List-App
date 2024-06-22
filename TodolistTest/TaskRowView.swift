@@ -12,11 +12,10 @@ struct TaskRowView: View {
     @Bindable var task: Task
 //    @Binding var tasks: [Task]
     @ObservedObject var user: User
-    
+    @State private var isButtonTapped = false
+ 
     var body: some View {
         HStack {
-            TextField(task.title, text: $task.title)
-                .foregroundColor(task.isCompleted ? .secondary : .primary)
             Button(action: {
                 task.isCompleted.toggle()
                 if task.isCompleted {
@@ -24,9 +23,20 @@ struct TaskRowView: View {
                 } else {
                     user.addXP(-10)
                 }
+                
+                if !isButtonTapped {
+                    self.isButtonTapped = true
+                }
+                
             }) {
-                Image(systemName: task.isCompleted ? "checkmark.square" : "square")
-            }
+                Image(systemName: task.isCompleted ? "largecircle.fill.circle" : "circle")
+                    .foregroundColor(task.isCompleted ? .black : .gray)
+            } .disabled(isButtonTapped)
+            
+            TextField(task.title, text: $task.title)
+                .foregroundColor(task.isCompleted ? .secondary : .primary)
+            
+            
         }
     }
     
