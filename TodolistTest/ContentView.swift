@@ -13,30 +13,82 @@ struct ContentView: View {
     @Query var tasks: [Task]
     @State private var path = [Task]()
     @Environment(\.modelContext) var modelContext
+    @Query(filter: #Predicate<Task> { task in
+        task.isCompleted == false
+    }) private var previewTasks : [Task]
+    
+    @Query(filter: #Predicate<Task> { task in
+        task.isCompleted == true
+    }) private var doneTasks : [Task]
+    
+    
+    @State var selectedDay = Date()
     
     @Binding var currentExp : Int
     @Binding var currentLevel : Int
     @Binding var completedTask : Int
+    @State private var tabSelection = 2
+    
+    
     
     //testbro
     var body: some View {
-        VStack{
-            NavigationStack(path: $path) {
-                List {
-                    ForEach(tasks) { task in
-                        TaskRowView(task: task, currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
-                    }
-                    .onDelete(perform: deleteTask)
-                }
-                .navigationTitle("To-Do")
-                .navigationDestination(for: Task.self, destination: EditTaskView.init)
-                .toolbar {
-                    Button("Add Task", systemImage: "plus", action: addTask)
-                }
-            }
-            Button("Reset", systemImage: "minus", action: resetSwiftData)
-        }
         
+        TabView(selection: $tabSelection){
+            
+            VStack{
+                NavigationStack(path: $path) {
+                    List {
+                        ForEach(doneTasks) { task in
+                            TaskRowView(task: task, currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
+                        }
+                        .onDelete(perform: deleteTask)
+                    }
+                    .navigationTitle("Completed Task")
+                    .navigationDestination(for: Task.self, destination: EditTaskView.init)
+                    
+                }
+//                Button("Reset", systemImage: "minus", action: resetSwiftData)
+            }.tag(1)
+            VStack{
+                NavigationStack(path: $path) {
+                    List {
+                        ForEach(previewTasks) { task in
+                            TaskRowView(task: task, currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
+                        }
+                        .onDelete(perform: deleteTask)
+                    }
+                    .navigationTitle("To-Do")
+                    .toolbar {
+                        Button("Add Task", systemImage: "plus", action: addTask)
+                    }
+                    .navigationDestination(for: Task.self, destination: EditTaskView.init)
+                }.padding(.bottom, 40)
+//                Button("Reset", systemImage: "minus", action: resetSwiftData)
+                
+            }.tag(2)
+            VStack{
+                NavigationStack(path: $path) {
+                    Divider()
+                  
+                        CalendarTest(selectedDay: $selectedDay).padding()
+                    
+                    List {
+                        ForEach(tasks) { task in
+                            if task.date.string() == selectedDay.string() {
+                                TaskRowView(task: task, currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
+                            }
+                        }
+                        .onDelete(perform: deleteTask)
+                    }
+                    .navigationTitle("Schedule")
+                }
+//                Button("Reset", systemImage: "minus", action: resetSwiftData)
+            }.tag(3)
+        }
+        .overlay(alignment: .bottom){
+            TodoTabView(tabSelection: $tabSelection)
+        }
     }
 //    func addTask() {
 //        let task = Task(title: "", isCompleted: false, details: "", date: "", priority: 2)

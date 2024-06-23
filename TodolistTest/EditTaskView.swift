@@ -26,7 +26,7 @@ struct EditTaskView: View {
             }
             
         }
-        .navigationTitle("Edit Destination")
+        .navigationTitle("Edit Task")
         .navigationBarTitleDisplayMode(.inline)
     }
     

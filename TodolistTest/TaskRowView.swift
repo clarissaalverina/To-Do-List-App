@@ -15,6 +15,8 @@ struct TaskRowView: View {
     @Binding var currentLevel : Int
     @Binding var completedTask : Int
     
+ 
+    
     var body: some View {
            HStack {
                Button(action: {

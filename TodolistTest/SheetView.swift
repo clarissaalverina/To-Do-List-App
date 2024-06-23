@@ -15,9 +15,16 @@ struct SheetView: View {
     @AppStorage("currentLevel") private var currentLevel = 1
     @AppStorage("completedTask") private var completedTask = 0
     @State private var currentDetent: PresentationDetent = .height(190)
+//    @State private var tabSelection = 1
+//    
     @Query(filter: #Predicate<Task> { task in
         task.isCompleted == false
     }) private var previewTasks : [Task]
+    
+    @Query(filter: #Predicate<Task> { task in
+        task.isCompleted == true
+    }) private var checkedTasks : [Task]
+    
     var body: some View {
         ZStack {
             VStack {
@@ -28,12 +35,9 @@ struct SheetView: View {
                         .fontWeight(.semibold)
                         .font(.system(size: 18))
                         //xp and level here
-                    
             }
             .padding(.bottom, 700)
             .padding(.trailing, 200)
-            
-            Text("ini isinya")
         }
         .onAppear(perform: {
             showSheet = true
@@ -52,7 +56,7 @@ struct SheetView: View {
                     .presentationCornerRadius(30)
                     .presentationBackground(.regularMaterial)
                     .presentationDragIndicator(.visible)
-                    .interactiveDismissDisabled(true)
+                    .interactiveDismissDisabled(true).ignoresSafeArea()
         }
     }
     struct ShrunkView: View {
