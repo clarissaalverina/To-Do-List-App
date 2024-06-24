@@ -17,7 +17,7 @@ struct CalendarTest: View {
     
     
     var body: some View {
-        VStack(spacing: 20){
+        VStack(spacing: 16){
             HStack{
                 Spacer()
                 Button{
@@ -51,9 +51,9 @@ struct CalendarTest: View {
             }
             HStack{
                 ForEach(days, id: \.self) { day in
-                    Text(day).font(.system(size: 12, weight: .medium)).frame(maxWidth: .infinity)
+                    Text(day).foregroundColor(.blue).font(.system(size: 12, weight: .medium)).frame(maxWidth: .infinity)
                 }
-            }
+            }.cornerRadius(30)
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 20) {
                 ForEach(fetchDates()) { value in
                     
@@ -82,10 +82,12 @@ struct CalendarTest: View {
                         }
                     
                     .frame(width: 32, height: 32)
-                }
+                }.foregroundColor(.black)
             }.padding()
-        }.onChange(of: selectedMonth) { _ in
+        }
+        .onChange(of: selectedMonth) { _ in
             selectedDate = fetchSelectedMonth()
+                
         }
     }
     

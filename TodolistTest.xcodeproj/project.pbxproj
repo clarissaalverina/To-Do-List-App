@@ -63,10 +63,10 @@
 		BEE730902C1FDAE7005B0F99 /* TodolistTest */ = {
 			isa = PBXGroup;
 			children = (
-				241DB80D2C2891F200888F66 /* TodoTabView.swift */,
 				BEE730912C1FDAE7005B0F99 /* TodolistTestApp.swift */,
 				BEE7309F2C1FDD70005B0F99 /* SheetView.swift */,
 				BEE730932C1FDAE7005B0F99 /* ContentView.swift */,
+				241DB80D2C2891F200888F66 /* TodoTabView.swift */,
 				BEE730952C1FDAEA005B0F99 /* Assets.xcassets */,
 				BEE730972C1FDAEA005B0F99 /* Preview Content */,
 				2443A2032C2209E30072F526 /* Task.swift */,
@@ -296,7 +296,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodolistTest/Preview Content\"";
-				DEVELOPMENT_TEAM = KVM8YR8J8U;
+				DEVELOPMENT_TEAM = 4JX4J7L4P7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -309,7 +309,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Test.TodolistTest;
+				PRODUCT_BUNDLE_IDENTIFIER = liubuhyb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -325,7 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodolistTest/Preview Content\"";
-				DEVELOPMENT_TEAM = KVM8YR8J8U;
+				DEVELOPMENT_TEAM = 4JX4J7L4P7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -338,7 +338,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Test.TodolistTest;
+				PRODUCT_BUNDLE_IDENTIFIER = liubuhyb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

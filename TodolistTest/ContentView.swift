@@ -44,12 +44,16 @@ struct ContentView: View {
                         }
                         .onDelete(perform: deleteTask)
                     }
-                    .navigationTitle("Completed Task")
+                    .scrollContentBackground(.hidden)
+//                  .navigationTitle("Completed Task")
                     .navigationDestination(for: Task.self, destination: EditTaskView.init)
-                    
                 }
+                
 //                Button("Reset", systemImage: "minus", action: resetSwiftData)
-            }.tag(1)
+            }.tag(1).cornerRadius(30).background(.white)
+
+       
+            
             VStack{
                 NavigationStack(path: $path) {
                     List {
@@ -58,20 +62,22 @@ struct ContentView: View {
                         }
                         .onDelete(perform: deleteTask)
                     }
+                    .scrollContentBackground(.hidden)
                     .navigationTitle("To-Do")
                     .toolbar {
                         Button("Add Task", systemImage: "plus", action: addTask)
                     }
                     .navigationDestination(for: Task.self, destination: EditTaskView.init)
-                }.padding(.bottom, 40)
+                }
 //                Button("Reset", systemImage: "minus", action: resetSwiftData)
                 
-            }.tag(2)
+            }.tag(2).cornerRadius(30).background(Color(red: 251, green: 247, blue: 239).opacity(1))
+            
             VStack{
                 NavigationStack(path: $path) {
                     Divider()
                   
-                        CalendarTest(selectedDay: $selectedDay).padding()
+                        CalendarTest(selectedDay: $selectedDay)
                     
                     List {
                         ForEach(tasks) { task in
@@ -80,11 +86,13 @@ struct ContentView: View {
                             }
                         }
                         .onDelete(perform: deleteTask)
-                    }
-                    .navigationTitle("Schedule")
+                    }.scrollContentBackground(.hidden)
+                        .listStyle(.grouped)
+//                    .navigationTitle("Schedule")
+                    
                 }
 //                Button("Reset", systemImage: "minus", action: resetSwiftData)
-            }.tag(3)
+            }.tag(3).cornerRadius(30)
         }
         .overlay(alignment: .bottom){
             TodoTabView(tabSelection: $tabSelection)
@@ -116,4 +124,5 @@ struct ContentView: View {
         }
     }
 }
+
 

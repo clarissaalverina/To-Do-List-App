@@ -41,8 +41,10 @@ struct TaskRowView: View {
 //                   .foregroundColor(task.isCompleted ? .secondary : .primary)
                
            }
+           
            .contentShape(Rectangle()) // Ensures the entire HStack is tappable for navigation
-       }
+//           .cornerRadius(20)
+    }
     
     var filledReminderLabel: some View {
         Circle()

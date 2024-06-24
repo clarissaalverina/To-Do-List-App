@@ -38,7 +38,15 @@ struct SheetView: View {
             }
             .padding(.bottom, 700)
             .padding(.trailing, 200)
-        }
+//            
+//            VStack {
+//                Color(.blue)
+//                ContentView(currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
+//            }
+//
+//            .padding(12)
+//            .frame(maxHeight: .infinity, alignment: .bottom)
+        }.edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
             showSheet = true
         })
@@ -50,14 +58,19 @@ struct SheetView: View {
                             ContentView(currentExp: $currentExp, currentLevel: $currentLevel, completedTask: $completedTask)
                         }
                     }
-                    .padding()
+                    
+                    .cornerRadius(30)
+                    .padding(16)
+                    .padding(.bottom, 8)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .presentationDetents([.height(190), .medium, .large], selection: $currentDetent)
-                    .presentationCornerRadius(30)
                     .presentationBackground(.regularMaterial)
+                    .cornerRadius(30)
+                    .presentationCornerRadius(30)
                     .presentationDragIndicator(.visible)
                     .interactiveDismissDisabled(true).ignoresSafeArea()
         }
+        
     }
     struct ShrunkView: View {
         var previewTasks: [Task]
